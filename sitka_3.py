@@ -1,20 +1,21 @@
 # 1. change the file to include all the data for the year 2018
 # 2. change the title to - Daily and low high temperatures - 2018
-# 3. 
-# 4. 
-# 5. 
+# 3.
+# 4.
+# 5.
 
 
-import csv 
+import csv
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 open_file = open("sitka_weather_2018_simple.csv", "r")
 
-csv_file = csv.reader(open_file, delimiter = ",")
+csv_file = csv.reader(open_file, delimiter=",")
 
 header_row = next(csv_file)
 
-#The enumerate() function returns both the index of each item and the value of each item as you loop through a list
+# The enumerate() function returns both the index of each item and the value of each item as you loop through a list
 
 for index, column_header in enumerate(header_row):
     print("Index:", index, "Column Name:", column_header)
@@ -30,9 +31,9 @@ for row in csv_file:
     converted_date = datetime.strptime(row[2], "%Y-%m-%d")
     dates.append(converted_date)
 
-#plot highs on a chart
+# plot highs on a chart
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 fig = plt.figure()
 
@@ -50,7 +51,7 @@ plt.tick_params(axis="both", labelsize=12)
 
 plt.show()
 
-fig2, a=plt.subplots(2)
+fig2, a = plt.subplots(2)
 
 a[0].plot(dates, highs, c="red")
 a[1].plot(dates, lows, c="blue")

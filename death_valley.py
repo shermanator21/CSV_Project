@@ -12,7 +12,6 @@ header_row = next(csv_file)
 for index, column_header in enumerate(header_row):
     print("Index:", index, "Column Name:", column_header)
 
-
 highs = []
 dates = []
 lows = []
