@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 file_names = ["sitka_weather_2018_simple.csv", "death_valley_2018_simple.csv"]
 i = 0
 
+subnames = []
+
 fig, ax = plt.subplots(2)
 
 for name in file_names:
@@ -22,6 +24,7 @@ for name in file_names:
     max_index = header_row.index("TMAX")
     min_index = header_row.index("TMIN")
     date_index = header_row.index("DATE")
+    name_index = header_row.index("NAME")
 
     highs = []
     dates = []
@@ -31,6 +34,7 @@ for name in file_names:
         try:
             high = int(row[max_index])
             low = int(row[min_index])
+            subname = row[name_index]
             converted_date = datetime.strptime(row[date_index], "%Y-%m-%d")
         except ValueError:
             print(f"missing data for {converted_date}")
@@ -38,9 +42,9 @@ for name in file_names:
             highs.append(high)
             lows.append(low)
             dates.append(converted_date)
+        subnames.append(subname)
 
     # plot highs on a chart
-    # fig, ax = plt.subplots(2)
 
     ax[i].plot(dates, highs, c="red")
     ax[i].plot(dates, lows, c="blue")
@@ -50,19 +54,12 @@ for name in file_names:
     ax[i].fill_between(dates, highs, lows, facecolor="blue", alpha=0.1)
 
     plt.suptitle(
-        "Temperature comparison between SITKA AIRPORT, AK US and DEATH VALLEY, CA US",
+        "Temperature comparison between " + subnames[0] + " and " + subnames[-1],
         fontsize=10,
     )
 
-    # assigning subname for chart title based on name of file
-    if name == "sitka_weather_2018_simple.csv":
-        subname = "SITKA AIRPORT, AK US"
-    else:
-        subname = "DEATH VALLEY, CA US"
-
     ax[i].set_title(subname, fontsize=13)
     plt.xlabel("", fontsize=12)
-    # plt.ylabel("Temperature (F)", fontsize=12)
     plt.tick_params(axis="both", labelsize=12)
     i += 1
 
